@@ -1,7 +1,8 @@
 ## This is a function to create the estimates.
+## Ballesteros-Becerril
 # mydesign <- svydesign(id=~ID_CONSECU,strata=~ID_ESTRATO,data=BD1,weights=~FAC_EXPAN1)
 
-Estimar_Por <- function(x,y,data=NULL,Vacio=TRUE,lev=0.95,mydeff=FALSE){
+Total_By <- function(x,y,data=NULL,Vacio=TRUE,lev=0.95,mydeff=FALSE){
 sapply(x,function(x){
 XX <- svyby(eval(parse(text=paste0("~",x))),by=eval(parse(text=paste0("~",y))),data,svytotal,na.rm=Vacio,deff=mydeff)
 YY <- svytotal(eval(parse(text=paste0("~",x))),data,na.rm=Vacio,deff=mydeff)
@@ -26,7 +27,7 @@ simplify=FALSE)
 }
 
 
-Estimar_Por_Rel <- function(x,y,data=NULL,Vacio=TRUE,lev=0.95,mydeff=FALSE){
+Mean_By <- function(x,y,data=NULL,Vacio=TRUE,lev=0.95,mydeff=FALSE){
 sapply(x,function(x){
 XX <- svyby(eval(parse(text=paste0("~",x))),by=eval(parse(text=paste0("~",y))),data,svymean,na.rm=Vacio,deff=mydeff)
 YY <- svymean(eval(parse(text=paste0("~",x))),data,na.rm=Vacio,deff=mydeff)
@@ -52,7 +53,7 @@ simplify=FALSE)
 
 
 
-Estimar_Por_Ratio <- function(x,z,y=NULL,data=NULL,Vacio=TRUE,lev=0.95,mydeff=FALSE){
+Ratio_By <- function(x,z,y=NULL,data=NULL,Vacio=TRUE,lev=0.95,mydeff=FALSE){
 	sapply(x,function(x){
 	       XX <- svyby(eval(parse(text=paste0("~",x))),denominator=eval(parse(text=paste0("~",z))) ,by=eval(parse(text=paste0("~",y))),data,svyratio,na.rm=Vacio,deff=mydeff)
 	       YY <- svyratio(eval(parse(text=paste0("~",x))),denominator=eval(parse(text=paste0("~",z))),data,na.rm=Vacio,deff=mydeff)
