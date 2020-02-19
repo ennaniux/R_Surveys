@@ -94,5 +94,26 @@ ZZ[1,1]  <- "Nacional"
 
 
 
+## Create Binary variables
+## df$variable.var.names.00 <- ifelse(df$var.names%in%var.values,1,0)
+
+Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="00",neg=FALSE){
+    if(is.null(data.set)== TRUE){print("WARNING: You need to provide the data frame")}
+    else{
+        if(neg==FALSE){
+            for (i in 1:length(var.names)){
+                newvar  <-  paste("variable",var.names[i],label,sep=".")
+                data.set[[newvar]]  <-  ifelse(data.set[,var.names[i]]%in% var.values, 1,0)
+            }
+        } else {
+            for (i in 1:length(var.names)){
+                newvar  <-  paste("variable",var.names[i],label,sep=".")
+                data.set[[newvar]]  <-  ifelse(!data.set[,var.names[i]]%in% var.values, 1,0)
+            }
+
+        }
+         XX.result <<-data.set
+    }
+}
 
 
