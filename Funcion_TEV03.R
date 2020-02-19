@@ -112,8 +112,8 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
             }
 
         }
-         XX.result <<-data.set
+        XX.result <<-data.set
+        XX.newnames <<- paste("variable",var.names,label,sep=".")
     }
 }
-
 
