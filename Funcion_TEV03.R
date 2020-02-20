@@ -1,7 +1,7 @@
 ## This is a function to create the estimates for complex-survey designs.
 ## version V01: Ballesteros
 ## version V02: Ballesteros-Becerril
-## version V03: Ballesteros - López-Cruz © 2019
+## version V03: Ballesteros-Chávez - Becerril-Cejudo - López-Cruz © 2019
 ## mydesign <- svydesign(id=~ID_CONSECU,strata=~ID_ESTRATO,data=BD1,weights=~FAC_EXPAN1)
 
 ## R-Packages needed: survey.
