@@ -2,6 +2,7 @@
 ## version V01: Ballesteros
 ## version V02: Ballesteros-Becerril
 ## version V03: Ballesteros-Chávez - Becerril-Cejudo - López-Cruz © 2019
+## Licence: https://www.gnu.org/licenses/gpl-3.0.html
 ## mydesign <- svydesign(id=~ID_CONSECU,strata=~ID_ESTRATO,data=BD1,weights=~FAC_EXPAN1)
 
 ## R-Packages needed: survey.
