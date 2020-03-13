@@ -1,0 +1,181 @@
+/* DBCh CSS for blog project */
+/* color schemes: #333745; #E63462 ; #C7EFCF ; #EEF5DB ; #909396; #262626;*/
+
+body {
+	font-size: 18px;
+	color: #333745;
+	background-color: #C7EFCF;
+	font-family: sans-serif;
+	line-height: 1.3;
+}
+
+#content {
+	max-width: 50em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+p {
+    	text-align: justify;
+}
+
+/*** TABLE OF CONTENTS ***/
+
+#table-of-contents a:link,
+#table-of-contents a:visited {
+    color: black;
+    background: transparent;
+}
+
+#table-of-contents {
+    line-height: 1.2;
+}
+
+#table-of-contents h2 {
+    border-bottom: 0;
+}
+
+#table-of-contents ul {
+    list-style: none;
+    padding-left: 0.3em;
+    font-weight: normal;
+}
+
+#table-of-contents div>ul>li {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+#table-of-contents .tag {
+    display: none;
+}
+
+#table-of-contents .todo,
+#table-of-contents .done {
+    font-size: 80%;
+}
+
+#table-of-contents ol>li {
+    margin-top: 1em;
+}
+
+@media screen {
+
+    #table-of-contents {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 1em 0 1em 1em;
+        width: 290px;
+        height: 100vh;
+        overlow-x: hidden;
+        overlow-y: auto;
+    }
+
+    #table-of-contents h2 {
+        margin-top: 0;
+        font-family: Helvetica,Arial,"Lucida Grande",sans-serif;
+    }
+
+    #table-of-contents code {
+        font-size: 12px;
+    }
+    
+}
+
+@media screen and (max-width: 95em) {
+
+    #table-of-contents {
+        display: none;
+    }
+
+    h1.title {
+        margin-left: 0%;
+    }
+    
+    div#content {
+        margin-left: 5%;
+        max-width: 90%;
+    }
+}
+
+/*defaults*/
+
+
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+
