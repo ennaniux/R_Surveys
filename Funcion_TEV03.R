@@ -3,7 +3,7 @@
 ## version V02: Ballesteros-Becerril
 ## version V03: Ballesteros-Chávez - Becerril-Cejudo - López-Cruz © 2019
 ## Licence: https://www.gnu.org/licenses/gpl-3.0.html
-## mydesign <- svydesign(id=~ID_CONSECU,strata=~ID_ESTRATO,data=BD1,weights=~FAC_EXPAN1)
+## mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
 
 ## R-Packages needed: survey.
 
@@ -93,8 +93,6 @@ ZZ[1,1]  <- "Nacional"
 
 
 
-
-
 ## Create Binary variables
 ## df$variable.var.names.00 <- ifelse(df$var.names%in%var.values,1,0)
 
@@ -117,4 +115,84 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
         XX.newnames <<- paste("variable",var.names,label,sep=".")
     }
 }
+
+
+## Testing A.estimator with output procedure.
+
+## Usage:
+
+## Definition of the weights
+
+## df$W  <- as.numeric(as.character(df$FAC_ELE))
+
+## ## Definition of  PSU
+## df$PSU  <- df$UPM_DIS
+
+## ## Definitinon of Strata
+## df$STR  <-  df$EST_DIS
+
+## ## Definition of the LEVELS
+## df$LEVELS  <-  df$NOM_ENT
+
+## ## ----------%%%%%
+
+## varnames  <- c("AP4_3_3")
+## codes  <- c(1,2,9)
+
+## denovarnames  <- c("AP4_3_3")
+## denocodes  <- c(1,2,9)
+
+## filename  <-  "outputfilename"
+
+
+## mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
+
+
+A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign,filename = "outputfilename"){
+
+## Denominators
+denominators  <- Variable.creation(var.names=denovarnames,var.values=denocodes,data.set=df,label="Deno00")
+df  <- XX.result
+mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
+TT  <-  lapply(denominators,function(x) T.estimator(x,"LEVELS",mydesign))
+
+#Totals
+YY  <- lapply(codes,function(i){
+Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0("0",i))
+
+mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
+result.total  <-  lapply(XX.newnames,function(x) T.estimator(x,"LEVELS",mydesign))
+})
+
+#Ratios
+ZZ  <- lapply(codes,function(i){
+Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0("0",i))
+
+mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
+result.means  <-  lapply(XX.newnames,function(x) R.estimator(x,denominators[which(XX.newnames%in%x)],"LEVELS",mydesign))
+
+})
+
+## Printing procedure
+TT  <- unlist(TT,recursive=FALSE)
+YY  <- unlist(unlist(YY,recursive=FALSE),recursive=FALSE)
+ZZ  <- unlist(unlist(ZZ,recursive=FALSE),recursive=FALSE)
+
+Out1  <- mapply(cbind,TT,YY,ZZ,SIMPLIFY=FALSE)
+Out2  <- lapply(Out1,function(x){cbind("NAME"=names(x)[8],x,stringsAsFactors=FALSE)})
+std.names  <-  c("NAME","LEVELS","VALUE","SE","CV","INF.95","SUP.95")
+std.names19  <- c(std.names[1],paste(std.names[2:7],"denominator",sep="."),paste(std.names[2:7],"total",sep="."),paste(std.names[2:7],"mean",sep="."))
+Out3  <- lapply(Out2,function(x){colnames(x)  <-  std.names19; x})
+Out3  <- lapply(Out3,function(x){
+x[,2]  <- as.character(x[,2]);
+x[,8]  <- as.character(x[,8]);
+x[,14]  <- as.character(x[,14]);
+x})
+
+## --- Print Results:
+Out  <- do.call(rbind,c(Out3,make.row.names = FALSE))
+x  <-  x = as.character(as.POSIXct(Sys.time())) 
+write.csv(Out, paste0("./",filename,x,".csv"))
+}
+
 
