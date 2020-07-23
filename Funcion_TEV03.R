@@ -123,16 +123,16 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
 
 ## Definition of the weights
 
-## df$W  <- as.numeric(as.character(df$FAC_ELE))
+## df$W  <- df$Variable.weights
 
 ## ## Definition of  PSU
-## df$PSU  <- df$UPM_DIS
+## df$PSU  <- df$Variable.PSU
 
 ## ## Definitinon of Strata
-## df$STR  <-  df$EST_DIS
+## df$STR  <-  df$Variable.Strata
 
 ## ## Definition of the LEVELS
-## df$LEVELS  <-  df$NOM_ENT
+## df$LEVELS  <-  df$Variable.Levels
 
 ## ## ----------%%%%%
 
@@ -148,7 +148,7 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
 ## mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
 
 
-A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign,filename = "outputfilename"){
+A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign, file.out=filename){
 
 ## Denominators
 denominators  <- Variable.creation(var.names=denovarnames,var.values=denocodes,data.set=df,label="Deno00")
@@ -191,7 +191,7 @@ x})
 
 ## --- Print Results:
 Out  <- do.call(rbind,c(Out3,make.row.names = FALSE))
-x  <-  x = as.character(as.POSIXct(Sys.time())) 
+x  <- as.character(as.POSIXct(Sys.time())) 
 write.csv(Out, paste0("./",filename,x,".csv"))
 }
 
