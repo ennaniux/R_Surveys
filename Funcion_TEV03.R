@@ -142,7 +142,7 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
 ## denovarnames  <- c("AP4_3_3")
 ## denocodes  <- c(1,2,9)
 
-## filename  <-  "outputfilename"
+## filename  <-  "/path/to/outputfilename"
 
 
 ## mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
@@ -192,7 +192,7 @@ x})
 ## --- Print Results:
 Out  <- do.call(rbind,c(Out3,make.row.names = FALSE))
 x  <- as.character(as.POSIXct(Sys.time())) 
-write.csv(Out, paste0("./",filename,x,".csv"))
+write.csv(Out, paste0(filename,x,".csv"))
 }
 
 
