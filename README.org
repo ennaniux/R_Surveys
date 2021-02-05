@@ -1,0 +1,8 @@
+#+title: My title
+
+* Section 1
+
+** Subsection
+Some text
+
+* Section 2
