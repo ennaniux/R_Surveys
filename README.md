@@ -12,11 +12,11 @@ Some code using R and the survey package.
 
 The core of the functions defined here is the [survey package](https://cran.r-project.org/web/packages/survey/).
 
-%```{r eval=TRUE, include=TRUE}
-%
-%print("Hello MD")
-%
-%```
+#```{r eval=TRUE, include=TRUE}
+#
+#print("Hello MD")
+#
+#```
 
 ## Sampling design
 
