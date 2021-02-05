@@ -1,15 +1,15 @@
 R tools for Survey Analysis
 ==============
 
-***This is a subtitle***
+***with applications to complex Crime Victimisation Surveys***
 
-**Author:** *Me*
+**Authors:** *Daniel Ballesteros-Chavez, Jorge Becerril-Cejudo and Miguel López-Cruz*
 
 Some code using R and the survey package.
 
 ##  Introduction
 
-This is code that I have been developing in order to make survey analysis in a more systematic way.
+
 
 The core of the functions defined here is the [survey package](https://cran.r-project.org/web/packages/survey/).
 
