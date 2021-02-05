@@ -1,8 +1,9 @@
-___
-title: "Survey analysis with R"
-___
+R tools for Survey Analysis
+==============
 
-# R_Surveys
+***This is a subtitle***
+
+**Author:** *Me*
 
 Some code using R and the survey package.
 
