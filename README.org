@@ -18,6 +18,8 @@ Some code using R and the survey package.
 
 The core of the functions defined here is the [[https://cran.r-project.org/web/packages/survey/][survey package]].
 
+In this document we will describe the tools we have been developing in order to produce the analysis of surveys
+
 # ```{r eval=TRUE, include=TRUE}
 # 
 # print("Hello MD")
