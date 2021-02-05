@@ -10,7 +10,7 @@ This is code that I have been developing in order to make survey analysis in a m
 
 The core of the functions defined here is the [[https://cran.r-project.org/web/packages/survey/][survey package]].
 
-```{R eval=TRUE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
 
 print("Hello MD")
 
