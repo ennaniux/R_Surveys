@@ -1,8 +1,33 @@
-#+title: My title
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+title: R tools for Survey Analysis
+#+date: <2021-02-05 Fri>
+#+author: Daniel Ballesteros-Chavez, Jorge Becerril-Cejudo and Miguel López-Cruz
+#+email: 
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 26.1 (Org mode 9.3.6)
 
-* Section 1
 
-** Subsection
-Some text
+*  Introduction
+Some code using R and the survey package.
 
-* Section 2
+The core of the functions defined here is the [[https://cran.r-project.org/web/packages/survey/][survey package]].
+
+# ```{r eval=TRUE, include=TRUE}
+# 
+# print("Hello MD")
+# 
+# ```
+
+* Sampling design
+
+
+* Survey analysis examples
+
+
+* Printing results
