@@ -11,7 +11,6 @@
 #+select_tags: export
 #+exclude_tags: noexport
 #+creator: Emacs 26.1 (Org mode 9.3.6)
-#+header:  Daniel Ballesteros-Chavez, Jorge Becerril-Cejudo and Miguel López-Cruz
 
 *  Introduction
 Some code using R and the survey package.
@@ -65,7 +64,7 @@ https://www.inegi.org.mx/contenidos/programas/envipe/2019/Microdatos/bd_envipe20
 The zip file contains six .dbf files. We will be interested in answers from the main questionnaire =TPer_Vic1.dbf=, where among other things, includes the 
 variable =AP4_3_3=, that corresponds to the question
 
-*4.3.3* How do you feel in the STATE OF THE REPUBLIC that you live in, in terms of crime and safety?. 1. SAFE , 2. NOT SAFE, 3. REFUSE TO ANSWER.
+*4.3.3* How do you feel in the STATE OF THE REPUBLIC that you live in, in terms of crime and safety?. 1. SAFE , 2. NOT SAFE, 9. REFUSE TO ANSWER.
 
 Note that a fundamental requirement is a previous exploration of the data set and data cleansing, as well as be aware of the documentation for the project.
 In the Following we will obtain the totals and ratio estimates for the perception of feeling safe using the function =A.estimator=.
