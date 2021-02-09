@@ -51,10 +51,97 @@ in a ratio estimate. *denocodes* are the union of according to the set of values
 then the denominator value is the total estimate of =("VAR" = = 1 OR "VAR" = = 2 OR "VAR" = = 9)=.
 
 
-+ Definition of the sruvey design :: =mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)=
++ Definition of the survey design :: =mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)=
  
 
 * Survey analysis examples
 
+** ENVIPE 2019. INEGI, Mexico. Perception of feeling safe in the State
+
+The Statistical Office in Mexico has an open-data policy, en you can download the data set of the Crime Victimisation Survey form
+
+https://www.inegi.org.mx/contenidos/programas/envipe/2019/Microdatos/bd_envipe2019_dbf.zip
+
+The zip file contains six .dbf files. We will be interested in answers from the main questionnaire =TPer_Vic1.dbf=, where among other things, includes the 
+variable =AP4_3_3=, that corresponds to the question
+
+*4.3.3* How do you feel in the STATE OF THE REPUBLIC that you live in, in terms of crime and safety?. 1. SAFE , 2. NOT SAFE, 3. REFUSE TO ANSWER.
+
+Note that a fundamental requirement is a previous exploration of the data set and data cleansing, as well as be aware of the documentation for the project.
+In the Following we will obtain the totals and ratio estimates for the perception of feeling safe using the function =A.estimator=.
+
+#+begin_src R
+
+## Usage Example:
+
+library(foreign) ## Needed to read dbf files
+library(survey) ## Main tools for survey analysis
+
+source("./Funcion_TEV03.R") ## Our implementation
+
+## Reading the data set and preparing for analysis
+df  <- read.dbf("./TPer_Vic1.dbf")
+df$Variable.Weights  <- as.numeric(as.character(df$FAC_ELE))
+
+## Definition of the weights
+
+df$W  <- df$Variable.Weights
+
+## Definition of  PSU
+df$PSU  <- df$UPM_DIS
+
+## Definitinon of Strata
+df$STR  <-  df$EST_DIS
+
+## Definition of the LEVELS
+df$LEVELS  <-  df$NOM_ENT
+
+## Variable and codes to be analysed
+varnames  <- c("AP4_3_3")
+codes  <- c(1,2,9)
+
+
+## Denominator: From "AP4_3_3" the ones that answer 1 or 2 or 9:
+
+denovarnames  <- c("AP4_3_3")
+denocodes  <- c(1,2,9)
+
+
+## Definition of survey design
+mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
+
+
+## Definition of Output path to filename:
+
+filename  <-  "./File_AP4_3_3_OUT"
+
+
+## A.estimator
+A.estimator() ## Running with default values
+#+end_src
 
 * Printing results
+
+The output of =A.estimator= is a .csv file with the following column names:
+
++ =(none)= : the first column has no name, and it has row numbers.
++ =NAME= : Contains the variable name and the corresponding code, in the previous example it has  =variable.AP4_3_3.01=, =variable.AP4_3_3.02= and =variable.AP4_3_3.09=.
++ =LEVELS.denominator=: The variable specifying the subsets of the =denominator= variable, in this case the states (including the total).
++ =VALUE.denominator=: Total estimate for the =denominator= variable.
++ =SE.denominator=: The Standard Error for the total of the =denominator= variable.
++ =CV.denominator=: The Coefficient of Variance for the total of the =denominator= variable.
++ =INF.95.denominator=: The lower bound of the confidence interval for the total of the =denominator= variable.
++ =SUP.95.denominator=: The upper bound of the confidence interval for the total of the =denominator= variable.
++ =LEVELS.total=: The variable specifying the subsets of the =AP4_3_3= variable, in this case the states (including the total).
++ =VALUE.total=: Total estimate for the =AP4_3_3= variable.
++ =SE.total=: The Standard Error for the total of the =AP4_3_3= variable.
++ =CV.total=: The Coefficient of Variance for the total of the =AP4_3_3= variable.
++ =INF.95.total=: The lower bound of the confidence interval for the total of the =AP4_3_3= variable.
++ =SUP.95.total=: The upper bound of the confidence interval for the total of the =AP4_3_3= variable.
++ =LEVELS.mean=: The variable specifying the subsets of the =AP4_3_3= variable, in this case the states (including the total).
++ =VALUE.mean=: Ratio estimate for the =AP4_3_3= variable.
++ =SE.mean=: The Standard Error for the Ratio of the =AP4_3_3= variable.
++ =CV.mean=: The Coefficient of Variance for the Ratio of the =AP4_3_3= variable.
++ =INF.95.mean=: The lower bound of the confidence interval for the Ratio of the =AP4_3_3= variable.
++ =SUP.95.mean=: The upper bound of the confidence interval for the Ratio of the =AP4_3_3= variable.
+
