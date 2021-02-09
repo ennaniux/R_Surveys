@@ -46,7 +46,7 @@ in a ratio estimate. *denocodes* are the union of according to the set of values
 =denovarnames  <- c("VAR")=
 =denocodes  <- c(1,2,9)=
 
-then the denominator value is the total estimate of =("VAR" == 1 OR "VAR" == 2 OR "VAR" == 9)=.
+then the denominator value is the total estimate of =("VAR" = = 1 OR "VAR" = = 2 OR "VAR" = = 9)=.
 
 
 + Definition of design :: =mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)=
