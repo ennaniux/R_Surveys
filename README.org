@@ -76,7 +76,7 @@ In the Following we will obtain the totals and ratio estimates for the perceptio
 library(foreign) ## Needed to read dbf files
 library(survey) ## Main tools for survey analysis
 
-source("./Funcion_TEV03.R") ## Our implementation
+source("./survey_extra_tools.R") ## Our implementation
 
 ## Reading the data set and preparing for analysis
 df  <- read.dbf("./TPer_Vic1.dbf")
@@ -119,7 +119,7 @@ filename  <-  "./File_AP4_3_3_OUT"
 A.estimator() ## Running with default values
 #+end_src
 
-* Printing results
+*** Printing results
 
 The output of =A.estimator= is a .csv file with the following column names:
 
@@ -144,3 +144,5 @@ The output of =A.estimator= is a .csv file with the following column names:
 + =INF.95.mean=: The lower bound of the confidence interval for the Ratio of the =AP4_3_3= variable.
 + =SUP.95.mean=: The upper bound of the confidence interval for the Ratio of the =AP4_3_3= variable.
 
+
+** Final User's Tables
