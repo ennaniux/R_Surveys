@@ -4,6 +4,7 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: R tools for Survey Analysis
+#+subtitle: with examples on Crime Victimisation Surveys
 #+date: <2021-02-05 Fri>
 #+author: Daniel Ballesteros-Chavez, Jorge Becerril-Cejudo and Miguel López-Cruz
 #+email: 
