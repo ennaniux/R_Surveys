@@ -4,7 +4,6 @@
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:t todo:t |:t
 #+title: R tools for Survey Analysis
-#+subtitle: with examples on Crime Victimisation Surveys
 #+date: <2021-02-05 Fri>
 #+author: Daniel Ballesteros-Chavez, Jorge Becerril-Cejudo and Miguel López-Cruz
 #+email: 
@@ -12,7 +11,7 @@
 #+select_tags: export
 #+exclude_tags: noexport
 #+creator: Emacs 26.1 (Org mode 9.3.6)
-
+#+header:  Daniel Ballesteros-Chavez, Jorge Becerril-Cejudo and Miguel López-Cruz
 
 *  Introduction
 Some code using R and the survey package.
@@ -28,29 +27,31 @@ In our examples we consider Crime Victimisation Surveys from different statistic
 
 * Sampling design
 
-We assume you have a data frame stored in the object _df_, and that you would like to run the analysis of the variable "VAR". The data set should also cointain 
+We assume you have a data frame stored in the object _df_, and that you would like to run the analysis of the variable "VAR". The data set should also contains 
 the information related to the sample design, namely the strata, and the Primarily Sampling Units (PSU) as well as the corresponding weights:
 
 + Definition of the weights :: =df$W  <- df$Variable.Weights=
 + Definition of  PSU :: =df$PSU  <- df$Variable.PSU=
-+ Definitinon of Strata :: =df$STR  <-  df$Variable.Strata=
++ Definition of Strata :: =df$STR  <-  df$Variable.Strata=
 + Definition of the LEVELS :: =df$LEVELS  <-  df$Variable.Levels=
 
-The *varnames* is a character vector including the name or names of the variables to be analysed. *codes* is the values (or answers) given to the 
+The *varnames* is a character vector including the name or names of the variables to be analysed. *codes* is the values (or answers) given to the corresponding question in the survey, and usually takes a numerial value.
 
 =varnames  <- c("VAR")=
+
 =codes  <- c(1,2,9)=
 
 The *denovarnames* variable is a character vector containing the name of the variable to be used as denominator for the variable to be analised. It is the denominator
 in a ratio estimate. *denocodes* are the union of according to the set of values given. For example if we set:
 
 =denovarnames  <- c("VAR")=
+
 =denocodes  <- c(1,2,9)=
 
 then the denominator value is the total estimate of =("VAR" = = 1 OR "VAR" = = 2 OR "VAR" = = 9)=.
 
 
-+ Definition of design :: =mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)=
++ Definition of the sruvey design :: =mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)=
  
 
 * Survey analysis examples
