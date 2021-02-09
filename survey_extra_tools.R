@@ -3,10 +3,39 @@
 ## version V01: Ballesteros
 ## version V02: Ballesteros-Becerril
 ## version V03: Ballesteros-Chávez - Becerril-Cejudo - López-Cruz © 2019
+## survey_extra_tools.R: Ballesteros-Chávez - Becerril-Cejudo - López-Cruz © 2021
 ## Licence: https://www.gnu.org/licenses/gpl-3.0.html
-## mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
+
 
 ## R-Packages needed: survey.
+
+## Usage:
+
+## Definition of the weights
+
+## df$W  <- df$Variable.Weights
+
+## ## Definition of  PSU
+## df$PSU  <- df$Variable.PSU
+
+## ## Definitinon of Strata
+## df$STR  <-  df$Variable.Strata
+
+## ## Definition of the LEVELS
+## df$LEVELS  <-  df$Variable.Levels
+
+## varnames  <- c("AP4_3_3")
+## codes  <- c(1,2,9)
+
+## denovarnames  <- c("AP4_3_3")
+## denocodes  <- c(1,2,9)
+
+## filename  <-  "/path/to/outputfilename"
+
+## mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
+
+## For examples see the README.org file
+
 
 T.estimator <- function(x,y,data=NULL,Vacio=TRUE,lev=0.95,mydeff=FALSE){
 sapply(x,function(x){
@@ -118,35 +147,6 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
 }
 
 
-## Testing A.estimator with output procedure.
-
-## Usage:
-
-## Definition of the weights
-
-## df$W  <- df$Variable.weights
-
-## ## Definition of  PSU
-## df$PSU  <- df$Variable.PSU
-
-## ## Definitinon of Strata
-## df$STR  <-  df$Variable.Strata
-
-## ## Definition of the LEVELS
-## df$LEVELS  <-  df$Variable.Levels
-
-## ## ----------%%%%%
-
-## varnames  <- c("AP4_3_3")
-## codes  <- c(1,2,9)
-
-## denovarnames  <- c("AP4_3_3")
-## denocodes  <- c(1,2,9)
-
-## filename  <-  "/path/to/outputfilename"
-
-
-## mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
 
 
 A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign, file.out=filename){
