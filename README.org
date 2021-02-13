@@ -159,4 +159,4 @@ variations (c.v.'s) according to a certain range of values.
 ./gentab.sh File_AP4_3_3_OUT2021-02-09\ 13\:59\:47.csv
 #+end_src
 
-The output is the file [[https://github.com/ennaniux/R_Surveys/blob/master/myExcel.xls][=myExcel.xls]]=.
+The output is the file [[https://github.com/ennaniux/R_Surveys/raw/master/myExcel.xls][myExcel.xls]]
