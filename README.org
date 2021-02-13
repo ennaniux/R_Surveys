@@ -155,7 +155,7 @@ Now that we have the CSV file with all the interesting estimates, we proceed to 
 awk and perl to obtain a *.xls* file with 3 scale background format. Usually we want to high-light the estimates with coefficient of
 variations (c.v.'s) according to a certain range of values. 
 
-#+begin_src sh :results both
+#+begin_src sh :results table
 ./gentab.sh File_AP4_3_3_OUT2021-02-09\ 13\:59\:47.csv
 #+end_src
 
