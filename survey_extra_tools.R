@@ -194,6 +194,8 @@ x})
 Out  <- do.call(rbind,c(Out3,make.row.names = FALSE))
 x  <- as.character(as.POSIXct(Sys.time())) 
 write.csv(Out, paste0(filename,x,".csv"))
+
+return(Out)
 }
 
 
