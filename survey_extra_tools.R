@@ -149,7 +149,7 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
 
 
 
-A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign, file.out=filename){
+A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign, file.out=filename, write.file=FALSE){
 
 ## Denominators
 denominators  <- Variable.creation(var.names=denovarnames,var.values=denocodes,data.set=df,label="Deno00")
@@ -159,7 +159,7 @@ TT  <-  lapply(denominators,function(x) T.estimator(x,"LEVELS",mydesign))
 
 #Totals
 YY  <- lapply(codes,function(i){
-Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0("0",i))
+Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0(i))
 
 mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
 result.total  <-  lapply(XX.newnames,function(x) T.estimator(x,"LEVELS",mydesign))
@@ -167,7 +167,7 @@ result.total  <-  lapply(XX.newnames,function(x) T.estimator(x,"LEVELS",mydesign
 
 #Ratios
 ZZ  <- lapply(codes,function(i){
-Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0("0",i))
+Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0(i))
 
 mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
 result.means  <-  lapply(XX.newnames,function(x) R.estimator(x,denominators[which(XX.newnames%in%x)],"LEVELS",mydesign))
@@ -190,12 +190,18 @@ x[,8]  <- as.character(x[,8]);
 x[,14]  <- as.character(x[,14]);
 x})
 
-## --- Print Results:
-Out  <- do.call(rbind,c(Out3,make.row.names = FALSE))
-x  <- as.character(as.POSIXct(Sys.time())) 
-write.csv(Out, paste0(filename,x,".csv"))
+    Out  <- do.call(rbind,c(Out3,make.row.names = FALSE))
 
-return(Out)
+    if(write.file){
+        ## --- Print Results:
+        x  <- as.character(as.POSIXct(Sys.time())) 
+        write.csv(Out, paste0(filename,x,".csv"))
+        return(Out)
+
+    }
+    else{
+        return(Out)
+    }
 }
 
 
