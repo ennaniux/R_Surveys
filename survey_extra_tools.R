@@ -149,7 +149,7 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
 
 
 
-A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign, file.out=filename, write.file=FALSE){
+A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign, rate=1, file.out=filename, write.file=FALSE){
 
 ## Denominators
 denominators  <- Variable.creation(var.names=denovarnames,var.values=denocodes,data.set=df,label="Deno00")
@@ -189,8 +189,12 @@ x[,2]  <- as.character(x[,2]);
 x[,8]  <- as.character(x[,8]);
 x[,14]  <- as.character(x[,14]);
 x})
-
+    
     Out  <- do.call(rbind,c(Out3,make.row.names = FALSE))
+## By default rate == 1, rate = 100 is a percentage, rate = 100000 a rate per*/hab.
+
+    Out$VALUE.mean  <- Out$VALUE.mean * rate
+    print(paste0("you are using a rate value for the mean of: ",rate))
 
     if(write.file){
         ## --- Print Results:
