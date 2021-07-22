@@ -17,7 +17,7 @@ Some code using R and the survey package.
 
 We will discuss how to use the files:
 + survey_extra_tools.R
-+ gentab.sh
++ gentab.sh & gentab_gamma.sh
 
 The core of the functions defined in the first file is the [[https://cran.r-project.org/web/packages/survey/][survey package]], whereas the second file is a Bash script for UNIX-like systems.
 
@@ -160,3 +160,13 @@ variations (c.v.'s) according to a certain range of values.
 #+end_src
 
 The output is the file [[https://github.com/ennaniux/R_Surveys/raw/master/myExcel.xls][myExcel.xls]]
+
+
+#+begin_src sh 
+./gentab_gamma.sh File_AP4_3_3_OUT2021-02-09\ 13\:59\:47.csv
+#+end_src
+
+
+The output is the file [[./OUT.html][OUT.html]].
+
+
