@@ -2,6 +2,7 @@
 # Daniel Ballesteros-Chávez & Jorge Becerril-Cejudo.
 # Usage: ./gentab_gamma.sh
 
+# <style type=\"text/css\"> tr:nth-child(odd) {background-color: #e2e2e2;}  tr:first-child {font-weight: bold}  tr:hover {background-color: #d0c6e5;}</style>
 
 # td, th {
 #   border: 1px solid #dddddd;
@@ -43,7 +44,8 @@ td, th {border: 1px solid #dddddd; text-align: left; padding: 8px;}
 /*  background-color: #dddddd; */
 }
 </style>
-<style type=\"text/css\"> tr:nth-child(odd) {background-color: #e2e2e2;}  tr:first-child {font-weight: bold}  tr:hover {background-color: #d0c6e5;}</style>
+<style type=\"text/css\"> tr:first-child {font-weight: bold; background-color: #e2e2e2;} </style>
+
 </head>
 <body>
 
@@ -65,13 +67,13 @@ NAME=$(awk -F"," 'NR=='$id' {print $2}' $FILE | tr -d '"')
 LEVELS=$(awk -F"," 'NR=='$id' {print $3}' $FILE | tr -d '"')
 
 DENOMINATOR=$(awk -F"," 'NR=='$id' {if ($4 !=($4+0)) print $4; else printf "%15.0f", $4}' $FILE | tr -d '"')
-DFORMAT=$(awk -F"," 'NR=='$id' {if ($6 != ($6 + 0 )) print ""; else if ($6 >= 0.028 ) print "style=\"background-color:#f77f00\""; else if( $6 >= 0.015 && $6 <0.028) print "style=\"background-color:#eae2b7\""; else if($6 < 0.015) print "style=\"background-color:#FFFFFF\""}' $FILE)
+DFORMAT=$(awk -F"," 'NR=='$id' {if ($6 != ($6 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
 
 TOTALS=$(awk -F"," 'NR=='$id' {if ($10 !=($10+0)) print $10; else printf "%15.0f", $10}' $FILE | tr -d '"')
-TFORMAT=$(awk -F"," 'NR=='$id' {if ($12 != ($12 + 0 )) print ""; else if ($6 >= 0.028 ) print "style=\"background-color:#f77f00\""; else if( $6 >= 0.015 && $6 <0.028) print "style=\"background-color:#eae2b7\""; else if($6 < 0.015) print "style=\"background-color:#FFFFFF\""}' $FILE)
+TFORMAT=$(awk -F"," 'NR=='$id' {if ($12 != ($12 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
 
 MEANS=$(awk -F"," 'NR=='$id' {if ($16 !=($16+0)) print $16; else printf "%15.1f", $16*100 }' $FILE | tr -d '"')
-MFORMAT=$(awk -F"," 'NR=='$id' {if ($18 != ($18 + 0 )) print ""; else if ($6 >= 0.028 ) print "style=\"background-color:#f77f00\""; else if( $6 >= 0.015 && $6 <0.028) print "style=\"background-color:#eae2b7\""; else if($6 < 0.015) print "style=\"background-color:#FFFFFF\""}' $FILE)
+MFORMAT=$(awk -F"," 'NR=='$id' {if ($18 != ($18 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
 
 
 # In case you have your template in a file
@@ -99,9 +101,9 @@ REPORT="
  <tr>
 <td>$NAME</td>
 <td>$LEVELS</td>
-<td  $DFORMAT>$DENOMINATOR</td>
-<td  $TFORMAT>$TOTALS</td>
-<td  $MFORMAT>$MEANS</td>
+<td style=\" $DFORMAT ; text-align:right\">$DENOMINATOR</td>
+<td style=\" $TFORMAT ; text-align:right\">$TOTALS</td>
+<td style=\" $MFORMAT ; text-align:right\">$MEANS</td>
 </tr>
 </table>
 
@@ -118,9 +120,9 @@ REPORT="
  <tr>
 <td>$NAME</td>
 <td>$LEVELS</td>
-<td  $DFORMAT>$DENOMINATOR</td>
-<td  $TFORMAT>$TOTALS</td>
-<td  $MFORMAT>$MEANS</td>
+<td style=\" $DFORMAT ; text-align:right\">$DENOMINATOR</td>
+<td style=\" $TFORMAT ; text-align:right\">$TOTALS</td>
+<td style=\" $MFORMAT ; text-align:right\">$MEANS</td>
 </tr>
 "
 
