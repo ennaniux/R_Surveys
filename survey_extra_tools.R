@@ -198,7 +198,7 @@ x})
 
     if(write.file){
         ## --- Print Results:
-        x  <- as.character(as.POSIXct(Sys.time())) 
+        x  <- as.character(format(Sys.time(), "%a_%b_%d_%H%M%S%Y")) 
         write.csv(Out, paste0(filename,x,".csv"))
         return(Out)
 
