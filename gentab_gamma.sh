@@ -16,16 +16,21 @@
 
 
 FILE=$1
+FILENAME="${FILE:0: -3}html"
 
-rm OUT.html
+rm "${FILENAME}"
 
 # FILE2=$2
 
 # Number of rows in $FILE
-ROWS=$(cat $1 | wc -l)
+ROWS=$(cat $FILE | wc -l)
+
+TITLE2=$(awk -F"," 'NR==2 {print $22}' $FILE | tr -d '"')
+TITLE3=$(awk -F"," 'NR==2 {print $23}' $FILE | tr -d '"')
+#TITLE2="This is just an Example 00"
+:"${TITLE:=Título: $TITLE2}"
 
 
-TITLE="This is just an Example"
 
 REPORT="
 <!DOCTYPE html>
@@ -50,12 +55,13 @@ td, th {border: 1px solid #dddddd; text-align: left; padding: 8px;}
 <body>
 
 <h2>$TITLE</h2>
+<h3>$TITLE3</h3>
 <h3> Created by: gentab (gamma) </h3>
-<h3> ennaniux & akowalkan</h3>
+<h3> ennaniux</h3>
 
 "
 
-echo "$REPORT" >> OUT.html
+echo "$REPORT" >> "$FILENAME"
 
 # The counter starts from the second row (assuming headers in template_data.csv)
 for id in  `seq 1 $ROWS`; do
@@ -72,7 +78,7 @@ DFORMAT=$(awk -F"," 'NR=='$id' {if ($6 != ($6 + 0 )) print ""; else if ($6 >= 0.
 TOTALS=$(awk -F"," 'NR=='$id' {if ($10 !=($10+0)) print $10; else printf "%15.0f", $10}' $FILE | tr -d '"')
 TFORMAT=$(awk -F"," 'NR=='$id' {if ($12 != ($12 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
 
-MEANS=$(awk -F"," 'NR=='$id' {if ($16 !=($16+0)) print $16; else printf "%15.1f", $16*100 }' $FILE | tr -d '"')
+MEANS=$(awk -F"," 'NR=='$id' {if ($16 !=($16+0)) print $16; else printf "%15.1f", $16 }' $FILE | tr -d '"')
 MFORMAT=$(awk -F"," 'NR=='$id' {if ($18 != ($18 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
 
 
@@ -93,7 +99,7 @@ REPORT="
   </tr>"
 
 echo "$REPORT"
-echo "$REPORT" >> OUT.html
+echo "$REPORT" >> "$FILENAME"
 
 elif [ "$id" == "$ROWS" ]; then
     
@@ -111,7 +117,7 @@ REPORT="
 </html>
 "
 echo "$REPORT"
-echo "$REPORT" >> OUT.html
+echo "$REPORT" >> "$FILENAME"
 
 
 else
@@ -127,7 +133,7 @@ REPORT="
 "
 
 echo "$REPORT"
-echo "$REPORT" >> OUT.html
+echo "$REPORT" >> "$FILENAME"
 
 fi
 

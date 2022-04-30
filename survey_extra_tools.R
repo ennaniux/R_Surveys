@@ -152,14 +152,14 @@ Variable.creation  <-  function(var.names, var.values,data.set = NULL , label="0
 A.estimator  <-  function(x=varnames,y=codes,w=denovarnames,z=denocodes,datadesign = mydesign, rate=1, file.out=filename, write.file=FALSE){
 
 ## Denominators
-denominators  <- Variable.creation(var.names=denovarnames,var.values=denocodes,data.set=df,label="Deno00")
+denominators  <- Variable.creation(var.names=w,var.values=z,data.set=df,label="Deno00")
 df  <- XX.result
 mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
 TT  <-  lapply(denominators,function(x) T.estimator(x,"LEVELS",mydesign))
 
 #Totals
 YY  <- lapply(codes,function(i){
-Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0(i))
+Variable.creation(var.names=x,var.values=i,data.set=df,label=paste0(i))
 
 mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
 result.total  <-  lapply(XX.newnames,function(x) T.estimator(x,"LEVELS",mydesign))
@@ -167,7 +167,7 @@ result.total  <-  lapply(XX.newnames,function(x) T.estimator(x,"LEVELS",mydesign
 
 #Ratios
 ZZ  <- lapply(codes,function(i){
-Variable.creation(var.names=varnames,var.values=i,data.set=df,label=paste0(i))
+Variable.creation(var.names=x,var.values=i,data.set=df,label=paste0(i))
 
 mydesign  <-  svydesign(id=~PSU,strata=~STR,data=XX.result,weight=~W)
 result.means  <-  lapply(XX.newnames,function(x) R.estimator(x,denominators[which(XX.newnames%in%x)],"LEVELS",mydesign))
@@ -195,12 +195,17 @@ x})
 
     Out$VALUE.mean  <- Out$VALUE.mean * rate
     print(paste0("you are using a rate value for the mean of: ",rate))
-
+    Out$rate.info  <- rate
+    Out$metadata1  <- metadata1
+    Out$metadata2  <- metadata2
+    Out$codes.val  <- sub(".*\\.", "", Out$NAME)
+    
     if(write.file){
         ## --- Print Results:
         x  <- as.character(format(Sys.time(), "%a_%b_%d_%H%M%S%Y")) 
-        write.csv(Out, paste0(filename,x,".csv"))
+        write.csv(Out, paste0(file.out,x,".csv"))
         return(Out)
+#        write(paste0(file.out,x,".csv"), stdout())
 
     }
     else{
