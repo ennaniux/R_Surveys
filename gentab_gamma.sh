@@ -73,13 +73,13 @@ NAME=$(awk -F"," 'NR=='$id' {print $2}' $FILE | tr -d '"')
 LEVELS=$(awk -F"," 'NR=='$id' {print $3}' $FILE | tr -d '"')
 
 DENOMINATOR=$(awk -F"," 'NR=='$id' {if ($4 !=($4+0)) print $4; else printf "%15.0f", $4}' $FILE | tr -d '"')
-DFORMAT=$(awk -F"," 'NR=='$id' {if ($6 != ($6 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
+DFORMAT=$(awk -F"," 'NR=='$id' {if ($6 != ($6 + 0 )) print ""; else if ($6 > 0.25 ) print "background-color:#f77f00"; else if( $6 >= 0.15 && $6 <=0.25) print "background-color:#eae2b7"; else if($6 < 0.15) print "background-color:#FFFFFF"}' $FILE)
 
 TOTALS=$(awk -F"," 'NR=='$id' {if ($10 !=($10+0)) print $10; else printf "%15.0f", $10}' $FILE | tr -d '"')
-TFORMAT=$(awk -F"," 'NR=='$id' {if ($12 != ($12 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
+TFORMAT=$(awk -F"," 'NR=='$id' {if ($12 != ($12 + 0 )) print ""; else if ($12 > 0.25 ) print "background-color:#f77f00"; else if( $12 >= 0.15 && $6 <=0.25) print "background-color:#eae2b7"; else if($12 < 0.15) print "background-color:#FFFFFF"}' $FILE)
 
 MEANS=$(awk -F"," 'NR=='$id' {if ($16 !=($16+0)) print $16; else printf "%15.1f", $16 }' $FILE | tr -d '"')
-MFORMAT=$(awk -F"," 'NR=='$id' {if ($18 != ($18 + 0 )) print ""; else if ($6 >= 0.028 ) print "background-color:#f77f00"; else if( $6 >= 0.015 && $6 <0.028) print "background-color:#eae2b7"; else if($6 < 0.015) print "background-color:#FFFFFF"}' $FILE)
+MFORMAT=$(awk -F"," 'NR=='$id' {if ($18 != ($18 + 0 )) print ""; else if ($18 > 0.25 ) print "background-color:#f77f00"; else if( $18 >= 0.15 && $6 <=0.25) print "background-color:#eae2b7"; else if($18 < 0.15) print "background-color:#FFFFFF"}' $FILE)
 
 
 # In case you have your template in a file

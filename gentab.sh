@@ -1,5 +1,5 @@
 #!/bin/bash
-# Daniel Ballesteros-Chávez
+# Daniel Ballesteros-Chávez & Jesús A. Ballesteros-Chávez
 # Gentab
 # It is a human readable table generator using awk and perl.
 # The output is an xls file.
@@ -37,6 +37,8 @@ use warnings;
 
 use Excel::Writer::XLSX;
 
+use utf8;
+
 # Reading the CSV
 my @data = split(/\n/,$ENV{MYAWK});
 my $exp_size = scalar @data; 
@@ -44,7 +46,9 @@ print "Size: $exp_size \n";
 
 my $filename = "$ENV{FILENAME}";
 
-my ($x,$y) = (0,0);
+my$header_row =7;    ########## warning esto modifica los rangos del formato condicional...
+
+my ($x,$y) = ($header_row,0);
 
 
 my $workbook= Excel::Writer::XLSX->new( $filename );  
@@ -52,7 +56,10 @@ my $worksheet = $workbook->add_worksheet();
 
 
 # Header Format
-my $format0 = $workbook->add_format(bg_color => 'orange', bold => 1 , align => 'vcenter',size  => 12 );
+               #### my $format0 = $workbook->add_format(bg_color => 'blue', bold => 1 , align => 'vcenter',size  => 12 );
+my $format0  = $workbook->add_format( bold => 1 , align => 'vcenter', size  => 12, top => 1, bottom => 1);
+my $format02 = $workbook->add_format( bold => 1 , align => 'vcenter',size  => 12);
+my $format03 = $workbook->add_format( bold => 1 , align => 'vcenter', align => 'center', size  => 12, top => 1, bottom => 1);
 
 # This is the default backgound format empty
 my $format1 = $workbook->add_format();
@@ -67,48 +74,56 @@ my $format3 = $workbook->add_format(bg_color => '#f77f00');
 my $format_nT = $workbook->add_format( num_format => '# ### ##0');
 my $format_nC = $workbook->add_format( num_format => '# ##0.00');
 
-# Default cell width
-$worksheet->set_column( 0,8, 20);
+
 
 
 for my $i (@data){
 if($i eq $data[0]){
 my @input = split(",",$i);
-$worksheet->write($x++, $y, \@input , $format0);
-$worksheet->write(0, 0, "Nr" , $format0);
+####################################################### $worksheet->write($x++, $y, \@input , $format0);
+$worksheet->write($x, $y,   $input[0] , $format0);
+$worksheet->write($x, $y+1, $input[1] , $format0);
+$worksheet->write($x, $y+2, $input[2] , $format0);
+$worksheet->write($x, $y+4, $input[3] , $format0);
+$worksheet->write($x, $y+5, $input[4] , $format0);
+$worksheet->write($x, $y+7, $input[5] , $format0);
+$worksheet->write($x, $y+8, $input[6] , $format0);
+$worksheet->write($x, $y+9, $input[7] , $format0);
+$worksheet->write($x, $y+10, $input[8] , $format0);
+$worksheet->write($x, 0, "Nr" , $format0);
+$x=$x+2;
 }else
 {
 my @input = split(",",$i);
 $worksheet->write($x, $y,   $input[0] , $format1);
 $worksheet->write($x, $y+1, $input[1] , $format1);
 $worksheet->write($x, $y+2, $input[2] , $format1);
-$worksheet->write($x, $y+3, $input[3] , $format_nT);
-$worksheet->write($x, $y+4, $input[4] , $format_nC);
-$worksheet->write($x, $y+5, $input[5] , $format_nT);
-$worksheet->write($x, $y+6, $input[6] , $format_nC);
-$worksheet->write($x, $y+7, $input[7] , $format_nC);
-$worksheet->write($x, $y+8, $input[8] , $format_nC);
+$worksheet->write($x, $y+4, $input[3] , $format_nT);
+$worksheet->write($x, $y+5, $input[4] , $format_nC);
+$worksheet->write($x, $y+7, $input[5] , $format_nT);
+$worksheet->write($x, $y+8, $input[6] , $format_nC);
+$worksheet->write($x, $y+9, $input[7] , $format_nC);
+$worksheet->write($x, $y+10, $input[8] , $format_nC);
 $x++;
 }
 }
 
 
-
 ### Conditional formatting 1
 
-$worksheet->conditional_formatting( 1,3, $exp_size, 4,
+$worksheet->conditional_formatting( $header_row + 2 ,4, $x, 5,
     {
         type     => 'formula',
-        criteria => '=$E2 > 0.25',
+        criteria => '=$F10 > 0.25',
         format   => $format3,
     }
 );
 
 
-$worksheet->conditional_formatting( 1,3, $exp_size, 4,
+$worksheet->conditional_formatting( $header_row + 2,4, $x, 5,
     {
         type     => 'formula',
-        criteria => '=$E2 > 0.15',
+        criteria => '=$F10 > 0.15',
         format   => $format2,
     }
 );
@@ -118,19 +133,19 @@ $worksheet->conditional_formatting( 1,3, $exp_size, 4,
 
 ### Conditional formatting 2
 
-$worksheet->conditional_formatting( 1,5, $exp_size, 6,
+$worksheet->conditional_formatting( $header_row + 2,7, $x, 8,
     {
         type     => 'formula',
-        criteria => '=$G2 > 0.25',
+        criteria => '=$I10 > 0.25',
         format   => $format3,
     }
 );
 
 
-$worksheet->conditional_formatting( 1,5, $exp_size, 6,
+$worksheet->conditional_formatting( $header_row + 2,7, $x, 8,
     {
         type     => 'formula',
-        criteria => '=$G2 > 0.15',
+        criteria => '=$I10 > 0.15',
         format   => $format2,
     }
 );
@@ -138,29 +153,50 @@ $worksheet->conditional_formatting( 1,5, $exp_size, 6,
 
 ### Conditional formatting 3
 
-$worksheet->conditional_formatting( 1,7, $exp_size, 8,
+$worksheet->conditional_formatting( $header_row+2,9, $x, 10,
     {
         type     => 'formula',
-        criteria => '=$I2 > 0.25',
+        criteria => '=$K10 > 0.25',
         format   => $format3,
     }
 );
 
-$worksheet->conditional_formatting( 1,7, $exp_size, 8,
+$worksheet->conditional_formatting( $header_row + 2,9, $x, 10,
     {
         type     => 'formula',
-        criteria => '=$I2 > 0.15',
+        criteria => '=$K10 > 0.15',
         format   => $format2,
     }
 );
 
 
+$worksheet->merge_range_type('string', $x+6, 1,$x+6, 3, "The coefficient of variation (CV) is between .15 and 0.25", $format2);
+$worksheet->merge_range_type('string', $x+7, 1,$x+7, 3, "The coefficient of variation (CV) is bigger 0.25", $format3);
+$worksheet->write($x+9, 1, "Generated by gentab");
 
+## Post-Formatting
 
-$worksheet->merge_range_type('string', $exp_size+3, 1,$exp_size+3, 3, "The coefficient of variation (CV) is between .15 and 0.25", $format2);
-$worksheet->merge_range_type('string', $exp_size+4, 1,$exp_size+4, 3, "The coefficient of variation (CV) is bigger 0.25", $format3);
+$worksheet->write(1, 0, "Título" , $format02);
+$worksheet->write(2, 0, "Período" , $format02);
 
-$worksheet->write($exp_size+6, 1, "Generated by gentab");
+$worksheet->merge_range_type('string', $header_row-2, 4,$header_row-2, 5, "Etiqueta 01", $format03);
+$worksheet->merge_range_type('string', $header_row-2, 7,$header_row-2, 10, "Etiqueta 02", $format03);
+
+$worksheet->write($header_row, 4, "Total" ,      $format03);
+$worksheet->write($header_row, 7, "Total" ,      $format03);
+$worksheet->write($header_row, 9, "Porcentaje" , $format03);
+
+# Default cell height
+$worksheet->set_column( 0, 0, 10 );    # Column A width set to 20 in character units
+$worksheet->set_column( 1, 1, 20 );    # Column B set to the same width in pixels
+$worksheet->set_column( 2, 2, 20 );
+$worksheet->set_column( 3, 3,  2 );
+$worksheet->set_column( 4, 5, 25 );
+$worksheet->set_column( 6, 6,  2 );
+$worksheet->set_column( 7, 10,25 );
+
+$worksheet->set_row(6,6,5);
+$worksheet->set_row(8,6,5);
 
 $workbook->close();
 
