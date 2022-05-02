@@ -38,14 +38,14 @@ the information related to the sample design, namely the strata, and the Primari
 + Definition of Strata :: =df$STR  <-  df$Variable.Strata=
 + Definition of the LEVELS :: =df$LEVELS  <-  df$Variable.Levels=
 
-The *varnames* is a character vector including the name or names of the variables to be analysed. *codes* is the values (or answers) given to the corresponding question in the survey, and usually takes a numerical value.
+The *varnames* is a character vector including the name or names of the variables to be analysed. *codes* contains the values (or answers) given to the corresponding question in the survey, and usually takes a numerical value.
 
 =varnames  <- c("VAR")=
 
 =codes  <- c(1,2,9)=
 
 The *denovarnames* variable is a character vector containing the name of the variable to be used as denominator for the variable to be analysed. It is the denominator
-in a ratio estimate. *denocodes* are the union of according to the set of values given. For example if we set:
+in a ratio estimate. *denocodes* denotes the union of values for which =codes= applies. For example if we set:
 
 =denovarnames  <- c("VAR")=
 
@@ -118,9 +118,15 @@ mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
 
 filename  <-  "./File_AP4_3_3_OUT"
 
+## There is an option to add new meta-data, although not complete yet.
+metadata1 <- ""
+metadata2 <- ""
+
+## NEW: rate.info 1:per 1, 100:per 100, 100000: per 100,000.
+rate.info <- 100
 
 ## A.estimator
-A.estimator() ## Running with default values
+A.estimator() ## Running with default values. To print the example add (rate=rate.info, write.file=TRUE)
 #+end_src
 
 *** Printing results
@@ -128,7 +134,7 @@ A.estimator() ## Running with default values
 The output of =A.estimator= is a .csv file with the following column names:
 
 + =(none)= : the first column has no name, and it has row numbers.
-+ =NAME= : Contains the variable name and the corresponding code, in the previous example it has  =variable.AP4_3_3.01=, =variable.AP4_3_3.02= and =variable.AP4_3_3.09=.
++ =NAME= : Contains the variable name and the corresponding code, in the previous example it has  =variable.AP4_3_3.1=, =variable.AP4_3_3.2= and =variable.AP4_3_3.9=.
 + =LEVELS.denominator=: The variable specifying the subsets of the =denominator= variable, in this case the states (including the total).
 + =VALUE.denominator=: Total estimate for the =denominator= variable.
 + =SE.denominator=: The Standard Error for the total of the =denominator= variable.
@@ -170,3 +176,10 @@ The output is the file [[https://github.com/ennaniux/R_Surveys/raw/master/myExce
 The output is the file [[./OUT.html][OUT.html]].
 
 
+** Org table
+
+For a quick export to HTML using org-mode in Emacs, add the following in the header of the org file.
+
+#+begin_example org
+#+HTML_HEAD: <style type="text/css"> tr:nth-child(odd) {background-color: #e2e2e2;}  tr:first-child {font-weight: bold}  tr:hover {background-color: #d0c6e5;}</style>
+#+end_example
