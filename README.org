@@ -165,7 +165,7 @@ variations (c.v.'s) according to a certain range of values.
 ./gentab.sh ./examples/File_AP4_3_3_OUTThu_May_05_1920552022.csv
 #+end_src
 
-The output is the file [[./examples/File_AP4_3_3_OUTThu_May_05_1920552022.xls][xls file]] inside the =examples= folder.
+The output is the file [[./examples/File_AP4_3_3_OUTThu_May_05_1920552022.xls][xls file]] inside the folder =examples=.
 
 
 In the same way we can produce a html table from our csv file as follows.
@@ -174,7 +174,7 @@ In the same way we can produce a html table from our csv file as follows.
 #+end_src
 
 
-The output is the file [[./examples/File_AP4_3_3_OUTThu_May_05_1920552022.csv][html file]]in the  folder =examples=.
+The output is the file [[./examples/File_AP4_3_3_OUTThu_May_05_1920552022.csv][html file]] inside the folder =examples=.
 
 
 Gentab_beta is still under development.
