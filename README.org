@@ -162,19 +162,22 @@ awk and perl to obtain a *.xls* file with 3 scale background format. Usually we 
 variations (c.v.'s) according to a certain range of values. 
 
 #+begin_src sh 
-./gentab.sh File_AP4_3_3_OUT2021-02-09\ 13\:59\:47.csv
+./gentab.sh ./examples/File_AP4_3_3_OUTThu_May_05_1920552022.csv
 #+end_src
 
-The output is the file [[https://github.com/ennaniux/R_Surveys/raw/master/myExcel.xls][myExcel.xls]]
+The output is the file [[./examples/File_AP4_3_3_OUTThu_May_05_1920552022.xls][xls file]] inside the =examples= folder.
 
 
+In the same way we can produce a html table from our csv file as follows.
 #+begin_src sh 
-./gentab_gamma.sh File_AP4_3_3_OUT2021-02-09\ 13\:59\:47.csv
+./gentab_gamma.sh  ./examples/File_AP4_3_3_OUTThu_May_05_1920552022.csv
 #+end_src
 
 
-The output is the file [[./OUT.html][OUT.html]].
+The output is the file [[./examples/File_AP4_3_3_OUTThu_May_05_1920552022.csv][html file]]in the  folder =examples=.
 
+
+Gentab_beta is still under development.
 
 ** Org table
 
