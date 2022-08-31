@@ -19,7 +19,7 @@ We will discuss how to use the files:
 + survey_extra_tools.R
 + gentab.sh & gentab_gamma.sh
 
-The core of the functions defined in the first file is the [[https://cran.r-project.org/web/packages/survey/][survey package]], whereas the second file is a Bash script for UNIX-like systems.
+The core of the functions defined in the first file is the [[https://cran.r-project.org/web/packages/survey/][survey package]], whereas the second file is a Bash script for UNIX-like systems and the standard tools therein.
 
 In this document we will describe the tools we have been developing in order to produce the analysis of surveys. 
 One is usually interested in obtaining totals, means and ratio estimates from a data set that contains results of a survey and which includes
@@ -30,7 +30,7 @@ In our examples we consider *Crime Victimisation Surveys* from different statist
 
 * Sampling design
 
-We assume you have a data frame stored in the object _df_, and that you would like to run the analysis of the variable "VAR". The data set should also contains 
+We assume that a data frame is stored in the object _df_, and that one would like to run the analysis of the variable "VAR". The data set should also contain 
 the information related to the sample design, namely the strata, and the Primarily Sampling Units (PSU) as well as the corresponding weights:
 
 + Definition of the weights :: =df$W  <- df$Variable.Weights=
@@ -51,7 +51,7 @@ in a ratio estimate. *denocodes* denotes the union of values for which =codes= a
 
 =denocodes  <- c(1,2,9)=
 
-then the denominator value is the total estimate of =("VAR" = = 1 OR "VAR" = = 2 OR "VAR" = = 9)=.
+then, the denominator value is the total estimate of =("VAR" = = 1 OR "VAR" = = 2 OR "VAR" = = 9)=.
 
 
 + Definition of the survey design :: =mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)=
@@ -61,7 +61,7 @@ then the denominator value is the total estimate of =("VAR" = = 1 OR "VAR" = = 2
 
 ** ENVIPE 2019. INEGI, Mexico. Perception of feeling safe in the State
 
-The Statistical Office in Mexico has an open-data policy, en you can download the data set of the Crime Victimisation Survey form
+The Statistical Office in Mexico has an open-data policy. You can download the data set of the Crime Victimisation Survey form
 
 https://www.inegi.org.mx/contenidos/programas/envipe/2019/Microdatos/bd_envipe2019_dbf.zip
 
@@ -70,8 +70,8 @@ variable =AP4_3_3=, that corresponds to the question
 
 *4.3.3* How do you feel in the STATE OF THE REPUBLIC that you live in, in terms of crime and safety?. 1. SAFE , 2. NOT SAFE, 9. REFUSE TO ANSWER.
 
-Note that a fundamental requirement is a previous exploration of the data set and data cleansing, as well as be aware of the documentation for the project.
-In the Following we will obtain the totals and ratio estimates for the perception of feeling safe using the function =A.estimator=.
+Note that a fundamental requirement is a previous exploration of the data set and data cleansing, as well as to be familiar with the documentation for the project.
+In the following, we will obtain the totals and ratio estimates for the perception of feeling safe using the function =A.estimator=.
 
 #+begin_src R
 
@@ -87,7 +87,6 @@ df  <- read.dbf("./TPer_Vic1.dbf")
 df$Variable.Weights  <- as.numeric(as.character(df$FAC_ELE))
 
 ## Definition of the weights
-
 df$W  <- df$Variable.Weights
 
 ## Definition of  PSU
@@ -105,7 +104,6 @@ codes  <- c(1,2,9)
 
 
 ## Denominator: From "AP4_3_3" the ones that answer 1 or 2 or 9:
-
 denovarnames  <- c("AP4_3_3")
 denocodes  <- c(1,2,9)
 
@@ -115,7 +113,6 @@ mydesign <- svydesign(id=~PSU,strata=~STR,data=df,weights=~W)
 
 
 ## Definition of Output path to filename:
-
 filename  <-  "./File_AP4_3_3_OUT"
 
 ## There is an option to add new meta-data, although not complete yet.
