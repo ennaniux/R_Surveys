@@ -1,38 +1,56 @@
 ## Daniel Ballesteros-Chávez
+## Some tools to perform sampling:
+## data is a data.frame
+## "PSU_ID" and "EST" are assumed for Primary Sampling Unite ID and Strata
 
-library(foreign)
+###################################
+## Simple Random Sampling (no repetition, you can modify accordingly)
+###################################
+SimSamp <- function(data,m){
+NN  <-  nrow(data)
+MM   <- m      
+PProb  <-  MM/NN
+FFac  <- 1/PProb
+SimpleSample <- sample(data$PSU_ID,MM)
+data$Group  <-  ifelse(data$PSU_ID%in%SimpleSample,"G1","G0")
+data$Prob  <-  ifelse(data$PSU_ID%in%SimpleSample,PProb,NA)
+data$Fac  <-  ifelse(data$PSU_ID%in%SimpleSample,FFac,NA)
+return(data)
+}
 
-## From a data base, Draw a Sample for a survey with weights.
+## The output is data with added variables:
+## Group: "G1 - Selected" "G0 - Not selected"
+## Prob: Probability of inclusion
+## Fac: Weight as inverse of the probability of inclusion.
 
-source("/home/daniel/Documents/org/norgtes/nDataAnalysis/myR_utils/myutilities.R")
+###################################
+## Stratified Simple Sampling
+###################################
+## Draws the same number of PSU within each Stratum
+## The output is a list for first review.
+SimSamp.STR  <- function(data,m){
+VEST <- sort(unique(data$EST))
+MM <- m
+YY  <- lapply(VEST, function(i){
+XX  <- data[data$EST%in%i,]
+SimSamp(XX,MM)
+})
+return(YY)
+}
 
-## MG_INEGI_2020
-
-dfent  <- read.dbf("/home/daniel/Documents/MG_INEGI2020/MG_2020_Integrado/conjunto_de_datos/00ent.dbf")
-dfmun  <- read.dbf("/home/daniel/Documents/MG_INEGI2020/MG_2020_Integrado/conjunto_de_datos/00mun.dbf")
-dfageb  <- read.dbf("/home/daniel/Documents/MG_INEGI2020/MG_2020_Integrado/conjunto_de_datos/00a.dbf")
-
-dframe  <-  read.csv("/home/daniel/Documents/MG_INEGI2020/Viviendas00.CSV")
-
-
-### Extraccion de una muestra:
-## It requires the following information:
-## Let DF be a data frame with the following characteristics:
-## DF$EST estratum variable (say DF = UPM, EST)
-## Following steps:
-DF  <- dfageb
-DF$VARIABLE  <-  paste0(DF$CVE_ENT , DF$Ambito)
-DF$VARIABLE  <-  as.numeric(as.factor(DF$VARIABLE))
-
-out.strat  <-  mystratcv(DF$VARIABLE,cv = 0.008,ls=4)
-## DF2  <-  cbind(DF,"EST"=out.strat$stratumID)
-## ## Lets see if now we can estract the sample:
-## DF3  <-  DF2[order(DF2$EST),]
-## ##there is something doggie with the first one:
-## ## DF3  <-  DF3[-1,]
-## out.mysample <- strata(DF3, stratanames=c("EST"),out.strat$nh, method="systematic",pik=DF3$HPOP,description=TRUE)
-
-
-
-
-
+###################################
+## Stratified Simple Sampling Proportional to Size of Strata
+###################################
+## Draws a sample of size m PSU, proportionally to the size of the Strata
+## The output is a list for first review.
+SimSamp.STR.PP  <- function(data,m){
+VEST <- sort(unique(data$EST))
+NN <- nrow(data)
+YY  <- lapply(VEST, function(i){
+XX  <- data[data$EST%in%i,]
+poppr  <- nrow(XX)/NN
+MM <- round(m*poppr)
+SimSamp(XX,MM)
+})
+return(YY)
+}
